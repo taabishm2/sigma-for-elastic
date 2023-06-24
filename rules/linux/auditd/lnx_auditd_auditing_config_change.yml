@@ -16,15 +16,15 @@ logsource:
     service: auditd
 detection:
     selection:
-        tags: path_watch
+        tags: audit_conf_change
         auditd.paths.name:
             - /etc/audit
-            - /etc/audit/*
+            - \/etc\/audit\/*
             - /etc/libaudit.conf
             - /etc/audisp
-            - /etc/audisp/*
+            - \/etc\/audisp\/*
             - /etc/auditbeat
-            - /etc/auditbeat/*
+            - \/etc\/auditbeat\/*
     condition: selection
 fields:
     - exe
