@@ -1,3 +1,4 @@
+# Note: In Elastic Rule query generated from uncoder.io, remove ":" in the prefix of keywords_truncate, keywords_dd, keywords_filter
 title: Binary Padding - Linux
 id: c52a914f-3d8b-4b2a-bb75-b3991e75f8ba
 status: test
