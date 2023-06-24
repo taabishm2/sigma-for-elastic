@@ -16,8 +16,8 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'PATH'
-        name:
+        tags: bpf_door_files
+        auditd.paths.name:
             - /var/run/haldrund.pid
             - /var/run/xinetd.lock
             - /var/run/kdevrund.pid
