@@ -15,12 +15,17 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection:
-        type: EXECVE
-        a0: arecord
-        a1: '-vv'
-        a2: '-fdat'
-    condition: selection
+    selection1:
+        auditd.data.syscall: execve
+    selection2:
+        process.args: arecord
+    selection3:
+        process.args: '-vv'
+    selection4:
+        process.args: '-f'
+    selection5:
+        process.args: 'dat'
+    condition: selection1 AND selection2 AND selection3 AND selection4 AND selection5
 falsepositives:
     - Unknown
 level: low
