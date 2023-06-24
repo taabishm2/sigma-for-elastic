@@ -18,7 +18,7 @@ detection:
     selection1:
         auditd.data.syscall: execve
     selection2:
-        process.args: *arecord
+        process.args|endswith: arecord
     selection3:
         process.args: '-vv'
     selection4:
