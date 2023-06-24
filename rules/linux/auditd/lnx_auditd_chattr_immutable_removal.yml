@@ -14,11 +14,13 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection:
-        type: 'EXECVE'
-        a0|contains: 'chattr'
-        a1|contains: '-i'
-    condition: selection
+    selection1:
+        auditd.data.syscall: execve
+    selection2:
+        process.args|endswith: chattr
+    selection3:
+        process.args: '-i'
+    condition: selection1 and selection2 and selection3 
 falsepositives:
     - Administrator interacting with immutable files (e.g. for instance backups).
 level: medium
