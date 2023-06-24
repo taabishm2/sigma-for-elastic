@@ -19,12 +19,15 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection:
-        type: EXECVE
-        a0: getcap
-        a1: '-r'
-        a2: '/'
-    condition: selection
+    cmd:
+        auditd.data.syscall: execve
+    selection1:
+        process.args|endswith: getcap
+    selection2:
+        process.args: '-r'
+    selection3:
+        process.args: '/'
+    condition: cmd and selection1 and selection2 and selection3
 falsepositives:
     - Unknown
 level: low
