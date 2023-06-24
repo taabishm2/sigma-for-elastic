@@ -15,7 +15,7 @@ logsource:
     service: auditd
 detection:
     execve:
-        type: 'EXECVE'
+        auditd.data.syscall: execve
     touch:
         - 'touch'
     selection2:
