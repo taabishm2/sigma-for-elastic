@@ -23,7 +23,7 @@ detection:
         process.args|endswith: wget
     selection2:
         process.args|startswith: '--post-file='
-    condition: selection
+    condition: cmd and selection1 and selection2
 falsepositives:
     - Legitimate usage of wget utility to post a file
 level: medium
