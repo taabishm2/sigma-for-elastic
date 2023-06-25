@@ -19,7 +19,7 @@ logsource:
     service: auditd
 detection:
     selection_path_events:
-        tags: bpf_door_files
+        tags: pamd_keylogging
         auditd.paths.name:
             - '/etc/pam.d/system-auth'
             - '/etc/pam.d/password-auth'
