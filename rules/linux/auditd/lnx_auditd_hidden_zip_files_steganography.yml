@@ -15,14 +15,14 @@ logsource:
     service: auditd
 detection:
     commands:
-        type: EXECVE
-        a0: cat
+        auditd.data.syscall: execve
+        process.args: cat
     a1:
-        a1|endswith:
+        process.args|endswith:
             - '.jpg'
             - '.png'
     a2:
-        a2|endswith: '.zip'
+        process.args|endswith: '.zip'
     condition: commands and a1 and a2
 falsepositives:
     - Unknown
