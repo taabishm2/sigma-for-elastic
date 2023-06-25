@@ -19,19 +19,21 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection1:
-        type: 'EXECVE'
-        a0: 'iptables'
-        a1|contains: 'DROP'
-    selection2:
-        type: 'EXECVE'
-        a0: 'firewall-cmd'
-        a1|contains: 'remove'
-    selection3:
-        type: 'EXECVE'
-        a0: 'ufw'
-        a1|contains: 'delete'
-    condition: 1 of selection*
+    exec:
+        auditd.data.syscall: execve
+    a1:
+        process.args: 'iptables'
+    a2:
+        process.args|contains: 'DROP'
+    b1:
+        process.args: 'firewall-cmd'
+    b2:
+        process.args|contains: 'remove'
+    c1:
+        process.args: 'ufw'
+    c2:
+        process.args|contains: 'delete'
+    condition: exec and ((a1 and a2) or (b1 and b2) or (c1 and c2))
 falsepositives:
     - Legitimate admin activity
 level: medium
