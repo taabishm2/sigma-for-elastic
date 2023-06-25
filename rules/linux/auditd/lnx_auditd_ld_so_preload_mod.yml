@@ -16,8 +16,7 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'PATH'
-        name: '/etc/ld.so.preload'
+        tags: 'ld_preload'
     condition: selection
 falsepositives:
     - Unknown
