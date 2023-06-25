@@ -15,19 +15,18 @@ logsource:
     service: auditd
 detection:
     commands:
-        type: EXECVE
-        a0:
+        auditd.data.syscall: execve
+        process.args:
             - mkdir
             - touch
             - vim
             - nano
             - vi
-    arguments:
-        - a1|contains: '/.'
-        - a1|startswith: '.'
-        - a2|contains: '/.'
-        - a2|startswith: '.'
-    condition: commands and arguments
+    selection1:
+        process.args|contains: '/.'
+    selection2:
+        process.args|startswith: '.'
+    condition: commands and selection1 and selection2
 falsepositives:
     - Unknown
 level: low
