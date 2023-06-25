@@ -15,11 +15,7 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'PATH'
-        name:
-            - /etc/syslog.conf
-            - /etc/rsyslog.conf
-            - /etc/syslog-ng/syslog-ng.conf
+        tags: 'daemon_conf_change'
     condition: selection
 fields:
     - exe
