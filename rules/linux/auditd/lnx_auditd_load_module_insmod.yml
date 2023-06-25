@@ -21,9 +21,9 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'SYSCALL'
-        comm: insmod
-        exe: /usr/bin/kmod
+        auditd.message_type: 'syscall'
+        process.args|startswith: insmod
+        process.executable: /usr/bin/kmod
     condition: selection
 falsepositives:
     - Unknown
