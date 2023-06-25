@@ -15,8 +15,8 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'EXECVE'
-        a0|contains:
+        auditd.data.syscall: execve
+        process.args|contains:
             - 'chmod'
             - 'chown'
     condition: selection
