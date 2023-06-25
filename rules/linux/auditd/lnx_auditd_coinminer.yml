@@ -28,6 +28,8 @@ detection:
         a6|startswith: '--cpu-priority'
     cmd7:
         a7|startswith: '--cpu-priority'
+    cmd8:
+        process.args|startswith: '--cpu-priority'
     condition: 1 of cmd*
 falsepositives:
     - Other tools that use a --cpu-priority flag
