@@ -19,15 +19,11 @@ logsource:
     service: auditd
 detection:
     selection_path_events:
-        type: PATH
-        name:
+        tags: bpf_door_files
+        auditd.paths.name:
             - '/etc/pam.d/system-auth'
             - '/etc/pam.d/password-auth'
-    selection_tty_events:
-        type:
-            - 'TTY'
-            - 'USER_TTY'
-    condition: 1 of selection_*
+    condition: selection_path_events
 falsepositives:
     - Administrative work
 level: high
