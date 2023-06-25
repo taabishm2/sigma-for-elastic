@@ -17,19 +17,25 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection:
-        type: EXECVE
-        a0: xclip
-        a1:
-            - '-selection'
-            - '-sel'
-        a2:
-            - clipboard
-            - clip
-        a3: '-t'
-        a4|startswith: 'image/'
-        a5: '-o'
-    condition: selection
+    selection1:
+        auditd.data.syscall: execve
+    selection2:
+        process.args|endswith: xclip
+    selection3:
+        process.args:
+          - '-selection'
+          - '-sel'
+    selection4:
+        process.args:
+          - clipboard
+          - clip
+    selection5: 
+          - process.args: '-t'
+    selection6: 
+          - process.args|startswith: 'image/'
+    selection7:
+          - process.args: '-o'
+    condition: selection1 and selection2 and selection3 and selection4 and selection5 and selection6 and selection7
 falsepositives:
     - Legitimate usage of xclip tools
 level: low
