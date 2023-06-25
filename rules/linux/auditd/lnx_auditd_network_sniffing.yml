@@ -17,17 +17,21 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection_1:
-        type: 'execve'
-        a0: 'tcpdump'
-        a1: '-c'
-        a3|contains: '-i'
-    selection_2:
-        type: 'execve'
-        a0: 'tshark'
-        a1: '-c'
-        a3: '-i'
-    condition: 1 of selection_*
+    exec:
+      auditd.data.syscall: execve
+    a1:
+      process.args: 'tcpdump'
+    a2:
+      process.args: '-c'
+    a3:
+      process.args|contains: '-i'
+    b1:
+      process.args: 'tshark'
+    b2:
+      process.args: '-c'
+    b3:
+      process.args: '-i'
+    condition: exec and ((a1 and a2 and a3) or (b1 and b2 and b3))
 falsepositives:
     - Legitimate administrator or user uses network sniffing tool for legitimate reasons.
 level: low
