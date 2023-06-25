@@ -14,18 +14,19 @@ logsource:
     product: linux
     service: auditd
 detection:
-    selection1:
-        type: 'execve'
-        a0: 'zip'
-    selection2:
-        type: 'execve'
-        a0: 'gzip'
-        a1: '-f'
-    selection3:
-        type: 'execve'
-        a0: 'tar'
-        a1|contains: '-c'
-    condition: 1 of selection*
+    cmd:
+        auditd.data.syscall: execve
+    zip:
+        process.args: 'zip'
+    gzip1:
+        process.args|endswith: 'gzip'
+    gzip2:
+        process.args: '-f'
+    tar1:
+        process.args: 'tar'
+    tar2:
+        process.args|contains: '-c'
+    condition: cmd and (zip or (gzip1 and gzip2) or (tar1 and tar2))
 falsepositives:
     - Legitimate use of archiving tools by legitimate user.
 level: low
