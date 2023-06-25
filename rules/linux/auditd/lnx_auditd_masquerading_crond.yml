@@ -17,10 +17,14 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'execve'
-        a0: 'cp'
-        a1: '-i'
-        a2: '/bin/sh'
-        a3|endswith: '/crond'
-    condition: selection
+        auditd.data.syscall: execve
+    a0:
+      process.args: 'cp'
+    a1:
+      process.args: '-i'
+    a2:
+      process.args: '/bin/sh'
+    a3:
+      process.args|endswith: '/crond'
+    condition: selection and a0 and a1 and a2 and a3
 level: medium
