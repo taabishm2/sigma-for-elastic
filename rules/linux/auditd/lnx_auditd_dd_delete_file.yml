@@ -14,12 +14,14 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'EXECVE'
-        a0|contains: 'dd'
-        a1|contains:
+        auditd.data.syscall: execve
+    selection1:
+        process.args|contains: 'dd'
+    selection2:
+        process.args|contains:
             - 'if=/dev/null'
             - 'if=/dev/zero'
-    condition: selection
+    condition: selection and selection1 and selection2
 falsepositives:
     - Appending null bytes to files.
     - Legitimate overwrite of files.
