@@ -23,11 +23,8 @@ logsource:
     service: auditd
 detection:
     selection:
-        type: 'SYSCALL'
-        syscall: 'execve'
-        uid: 0
-        cwd: '/var/opt/microsoft/scx/tmp'
-        comm: 'sh'
+        auditd.data.syscall: execve
+        auditd.paths.name: '/var/opt/microsoft/scx/tmp'
     condition: selection
 falsepositives:
     - Legitimate use of SCX RunAsProvider Invoke_ExecuteShellCommand.
